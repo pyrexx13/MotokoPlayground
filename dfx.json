@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "mydream_backend": {
+      "main": "src/mydream_backend/main.mo",
+      "type": "motoko"
+    },
+    "mydream_frontend": {
+      "dependencies": [
+        "mydream_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/mydream_frontend/src/index.html"
+      },
+      "source": [
+        "src/mydream_frontend/assets",
+        "dist/mydream_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
