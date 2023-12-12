@@ -17877,7 +17877,7 @@ __webpack_require__.r(__webpack_exports__);
  * beginning in dfx 0.15.0
  */
 const canisterId =
-  "bkyz2-fmaaa-aaaaa-qaaaq-cai" ||
+  "mytki-xqaaa-aaaab-qabrq-cai" ||
   0;
 
 const createActor = (canisterId, options = {}) => {
@@ -17925,7 +17925,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   init: () => (/* binding */ init)
 /* harmony export */ });
 const idlFactory = ({ IDL }) => {
-  return IDL.Service({ 'greet' : IDL.Func([IDL.Text], [IDL.Text], ['query']) });
+  const DAO = IDL.Service({
+    'addGoal' : IDL.Func([IDL.Text], [], []),
+    'getGoals' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
+    'getManifesto' : IDL.Func([], [IDL.Text], ['query']),
+    'getName' : IDL.Func([], [IDL.Text], ['query']),
+    'setManifesto' : IDL.Func([IDL.Text], [], []),
+  });
+  return DAO;
 };
 const init = ({ IDL }) => { return []; };
 
