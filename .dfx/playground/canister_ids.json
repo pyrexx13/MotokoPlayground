@@ -1,8 +1,7 @@
 {
-  "mydream_backend": {
-    "playground": "mytki-xqaaa-aaaab-qabrq-cai"
-  },
-  "mydream_frontend": {
+  "add_dreamers": {
     "playground": "mnu3f-wyaaa-aaaab-qabsa-cai"
-  }
+  },
+  "mydream_backend": {},
+  "mydream_frontend": {}
 }

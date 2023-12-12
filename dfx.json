@@ -4,6 +4,10 @@
       "main": "src/mydream_backend/main.mo",
       "type": "motoko"
     },
+    "add_dreamers": {
+      "main": "src/add_dreamers_backend/main.mo",
+      "type": "motoko"
+    },
     "mydream_frontend": {
       "dependencies": [
         "mydream_backend"
