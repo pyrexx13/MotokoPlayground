@@ -1,5 +1,13 @@
 {
   "canisters": {
+    "accounts_backend_account": {
+      "main": "src/dao_account_backend/account.mo",
+      "type": "motoko"
+    },    
+    "accounts_backend_main": {
+      "main": "src/dao_account_backend/main.mo",
+      "type": "motoko"
+    },
     "mydream_backend": {
       "main": "src/mydream_backend/main.mo",
       "type": "motoko"
