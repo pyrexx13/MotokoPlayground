@@ -1,0 +1,19 @@
+type Subaccount = blob;
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type Account = 
+ record {
+   owner: principal;
+   subaccount: opt Subaccount;
+ };
+service : {
+  balanceOf: (Account) -> (nat) query;
+  mint: (principal, nat) -> ();
+  tokenName: () -> (text) query;
+  tokenSymbol: () -> (text) query;
+  totalSupply: () -> (nat) query;
+  transfer: (Account, Account, nat) -> (Result);
+}

@@ -1,0 +1,14 @@
+type DAO = service {
+  addMember : (Member) -> (Result);
+  getAllEntries : () -> (vec record { principal; Member }) query;
+  getAllMembers : () -> (vec Member) query;
+  getAllPrincipals : () -> (vec principal) query;
+  getMember : (principal) -> (Result_1) query;
+  numberOfMembers : () -> (nat) query;
+  removeMember : () -> (Result);
+  updateMember : (Member) -> (Result);
+};
+type Member = record { age : nat; name : text };
+type Result = variant { ok; err : text };
+type Result_1 = variant { ok : Member; err : text };
+service : DAO
