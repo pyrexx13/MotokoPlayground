@@ -1,7 +1,11 @@
 {
-  "add_dreamers": {
-    "playground": "mnu3f-wyaaa-aaaab-qabsa-cai"
+  "accounts_backend_account": {
+    "playground": "4r7kv-yiaaa-aaaab-qac5a-cai"
   },
+  "accounts_backend_main": {
+    "playground": "4w6mb-vqaaa-aaaab-qac5q-cai"
+  },
+  "add_dreamers": {},
   "mydream_backend": {},
   "mydream_frontend": {}
 }

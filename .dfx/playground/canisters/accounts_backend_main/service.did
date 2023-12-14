@@ -1,0 +1,12 @@
+type Account = record { owner : principal; subaccount : opt Subaccount };
+type DAO = service {
+  balanceOf : (Account) -> (nat) query;
+  mint : (principal, nat) -> ();
+  tokenName : () -> (text) query;
+  tokenSymbol : () -> (text) query;
+  totalSupply : () -> (nat) query;
+  transfer : (Account, Account, nat) -> (Result);
+};
+type Result = variant { ok; err : text };
+type Subaccount = vec nat8;
+service : DAO

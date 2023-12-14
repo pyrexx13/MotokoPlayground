@@ -3,6 +3,8 @@ import Result "mo:base/Result";
 import TrieMap "mo:base/TrieMap";
 import Option "mo:base/Option";
 
+
+
 actor class DAO()  {
 
     // For this level make sure to use the helpers function in Account.mo
@@ -58,7 +60,6 @@ actor class DAO()  {
     
     public query func balanceOf(account : Account) : async Nat {
         return(Option.get<Nat>(ledger.get(account),0));
-
     };
 
     public query func totalSupply() : async Nat {
@@ -68,5 +69,6 @@ actor class DAO()  {
         };
        return supply;
     };
+
 
 };
