@@ -69,7 +69,7 @@ service : {
   balanceOf: (Account) -> (nat) query;
   createProposal: (text) -> (CreateProposalResult);
   getAllMembers: () -> (vec Member) query;
-  getAllProposals: () -> () query;
+  getAllProposals: () -> (vec Proposal) query;
   getGoals: () -> (vec text) query;
   getManifesto: () -> (text) query;
   getMember: (principal) -> (Result_1) query;

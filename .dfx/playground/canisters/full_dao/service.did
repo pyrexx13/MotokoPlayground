@@ -10,7 +10,9 @@ type DAO = service {
   addMember : (Member) -> (Result);
   balanceOf : (Account) -> (nat) query;
   createProposal : (text) -> (CreateProposalResult);
+  getAllEntries : () -> (vec record { principal; Member }) query;
   getAllMembers : () -> (vec Member) query;
+  getAllPrincipals : () -> (vec principal) query;
   getAllProposals : () -> (vec Proposal) query;
   getGoals : () -> (vec text) query;
   getManifesto : () -> (text) query;

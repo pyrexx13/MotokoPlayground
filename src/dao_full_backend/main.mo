@@ -59,62 +59,80 @@ actor class DAO() {
     public type Result<A, B> = Result.Result<A, B>;
     public type HashMap<A, B> = HashMap.HashMap<A, B>;
 
-    let dao : HashMap<Principal, Member> = HashMap.HashMap<Principal, Member>(0, Principal.equal, Principal.hash);
+    let dao : HashMap.HashMap<Principal, Member> = HashMap.HashMap<Principal, Member>(0, Principal.equal, Principal.hash);
 
-    public shared ({ caller }) func addMember(member : Member) : async Result<(), Text> {
-        switch (dao.get(caller)) {
-            case (?member) {
-                return #err("Already a member");
+    public shared ({ caller }) func addMember(memberCandidate : Member) : async Result<(), Text> {
+        //Implement the addMember function, this function takes a member of type Member as a parameter, adds a new member to the members HashMap. The function should check if the caller is already a member. If that's the case use a Result type to return an error message.;
+        switch(dao.get(caller)) {
+            case(null){
+                dao.put(caller, memberCandidate);
+                return #ok;
             };
-            case (null) {
-                dao.put(caller, member);
-                return #ok(());
-            };
-        };
-    };
-
-    public shared ({ caller }) func updateMember(member : Member) : async Result<(), Text> {
-        switch (dao.get(caller)) {
-            case (?member) {
-                dao.put(caller, member);
-                return #ok(());
-            };
-            case (null) {
-                return #err("Not a member");
-            };
-        };
-    };
-
-    public shared ({ caller }) func removeMember() : async Result<(), Text> {
-        switch (dao.get(caller)) {
-            case (?member) {
-                dao.delete(caller);
-                return #ok(());
-            };
-            case (null) {
-                return #err("Not a member");
+            case(? memberCandidate){
+                return #err("You already started dreaming" # memberCandidate.name);
             };
         };
     };
 
     public query func getMember(p : Principal) : async Result<Member, Text> {
-        switch (dao.get(p)) {
-            case (?member) {
-                return #ok(member);
+        //Implement the getMember query function, this function takes a principal of type Principal as a parameter and returns the corresponding member. You will use a Result type for your return value.
+       //if (p == null) {
+        //    return #err("You submitted a ghost!");
+       // }; 
+        switch(dao.get(p)) {
+            case(null){
+                #err("Your haven't started dreaming yet" # Principal.toText(p));
             };
-            case (null) {
-                return #err("Not a member");
+            case(? memberCandidate){
+                return #ok(memberCandidate);
+            };
+        }
+    };
+
+    public shared ({ caller }) func updateMember(memberInfo : Member) : async Result<(), Text> {
+        //Implement the updateMember function, this function takes a member of type Member as a parameter and updates the corresponding member associated with the caller. If the member doesn't exist, return an error message. You will use a Result type for your return value.;
+        switch(dao.get(caller)) {
+            case(null){
+               return #err("No dreamer by this name exists:" # memberInfo.name # ". You need to register as a member first.");
+            };
+            case(? member){
+                dao.put(caller, memberInfo);
+                return #ok;
             };
         };
     };
 
     public query func getAllMembers() : async [Member] {
+        //Implement the getAllMembers query function, this function takes no parameters and returns all the members of your DAO as an array of type [Member].
         return Iter.toArray(dao.vals());
     };
 
+    public query func getAllPrincipals() : async [Principal] {
+        return Iter.toArray(dao.keys());
+    };
+
+    public query func getAllEntries() : async [(Principal, Member)] {
+        return Iter.toArray(dao.entries());
+    };
+
     public query func numberOfMembers() : async Nat {
+        //Implement the numberOfMembers query function, this function takes no parameters and returns the number of members of your DAO as a Nat.
         return dao.size();
     };
+
+    public shared ({ caller }) func removeMember() : async Result<(), Text> {
+        //Implement the removeMember function, this function takes no parameter and removes the member associated with the caller. If there is no member associated with the caller, return an error message. You will use a Result type for your return value.
+        switch(dao.get(caller)) {
+            case(null){
+               return #err("No dreamer by this name exists. You need to register as a member first.");
+            };
+            case(? member){
+                dao.delete(caller);
+                return #ok;
+            };
+        };
+    };
+
 
     ///////////////
     // LEVEL #3 //
@@ -326,7 +344,7 @@ actor class DAO() {
         };
         return false;
     };
-
+    
     public shared ({ caller }) func vote(id : Nat, vote : Bool) : async voteResult {
         // Check that the caller is a member
         if (not (_isMemberDAO(caller))) {

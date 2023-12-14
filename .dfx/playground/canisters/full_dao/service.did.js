@@ -46,7 +46,13 @@ export const idlFactory = ({ IDL }) => {
     'addMember' : IDL.Func([Member], [Result], []),
     'balanceOf' : IDL.Func([Account], [IDL.Nat], ['query']),
     'createProposal' : IDL.Func([IDL.Text], [CreateProposalResult], []),
+    'getAllEntries' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Tuple(IDL.Principal, Member))],
+        ['query'],
+      ),
     'getAllMembers' : IDL.Func([], [IDL.Vec(Member)], ['query']),
+    'getAllPrincipals' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
     'getAllProposals' : IDL.Func([], [IDL.Vec(Proposal)], ['query']),
     'getGoals' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
     'getManifesto' : IDL.Func([], [IDL.Text], ['query']),
