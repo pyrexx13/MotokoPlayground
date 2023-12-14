@@ -1,11 +1,12 @@
 {
-  "accounts_backend_account": {
-    "playground": "4r7kv-yiaaa-aaaab-qac5a-cai"
+  "accounts_backend_account": {},
+  "accounts_backend_main": {},
+  "add_dreamers": {
+    "playground": "5stdt-mqaaa-aaaab-qac3q-cai"
   },
-  "accounts_backend_main": {
+  "full_dao": {
     "playground": "4w6mb-vqaaa-aaaab-qac5q-cai"
   },
-  "add_dreamers": {},
   "mydream_backend": {},
   "mydream_frontend": {}
 }

@@ -201,6 +201,10 @@ actor class DAO() {
         };
     };
 
+
+
+
+
     ///////////////
     // LEVEL #4 //
     /////////////
@@ -266,7 +270,7 @@ actor class DAO() {
             subaccount = null;
         };
         let balance = _balanceOf(defaultAccount);
-        if (n > balance) {
+        if (n >= balance) {
             return false;
         };
         return true;
@@ -298,6 +302,10 @@ actor class DAO() {
     public query func getProposal(id : Nat) : async ?Proposal {
         return proposals.get(id);
     };
+
+    public query func getAllProposals() : async [Proposal] {
+                 return Iter.toArray(proposals.vals());
+   };
 
     func _isProposalOpen(proposal : Proposal) : Bool {
         switch (proposal.status) {
