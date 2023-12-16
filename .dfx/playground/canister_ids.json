@@ -1,12 +1,15 @@
 {
   "accounts_backend_account": {},
   "accounts_backend_main": {},
-  "add_dreamers": {
-    "playground": "5stdt-mqaaa-aaaab-qac3q-cai"
-  },
+  "add_dreamers": {},
   "full_dao": {
-    "playground": "4w6mb-vqaaa-aaaab-qac5q-cai"
+    "playground": "xpjyl-daaaa-aaaab-qadcq-cai"
   },
   "mydream_backend": {},
-  "mydream_frontend": {}
+  "mydream_be": {
+    "playground": "363tq-3yaaa-aaaab-qacma-cai"
+  },
+  "mydream_frontend": {
+    "playground": "v4w3l-lyaaa-aaaab-qadma-cai"
+  }
 }

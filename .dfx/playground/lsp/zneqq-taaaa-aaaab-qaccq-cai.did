@@ -15,12 +15,13 @@ type DAO = service {
   getAllPrincipals : () -> (vec principal) query;
   getAllProposals : () -> (vec Proposal) query;
   getGoals : () -> (vec text) query;
+  getListOGoals : () -> (vec text) query;
   getManifesto : () -> (text) query;
   getMember : (principal) -> (Result_1) query;
   getName : () -> (text) query;
   getProposal : (nat) -> (opt Proposal) query;
   getStats : () -> (DAOStats) query;
-  http_request : (HttpRequest) -> (HttpResponse) query;
+  http_request : (HttpRequest) -> (HttpResponse);
   mint : (principal, nat) -> ();
   numberOfMembers : () -> (nat) query;
   removeMember : () -> (Result);
@@ -33,7 +34,7 @@ type DAO = service {
   vote : (nat, bool) -> (voteResult);
 };
 type DAOStats = record {
-  member : vec text;
+  member : vec Member;
   numberOfMembers : nat;
   logo : text;
   name : text;

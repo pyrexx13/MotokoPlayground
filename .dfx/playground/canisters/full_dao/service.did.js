@@ -28,6 +28,47 @@ export const idlFactory = ({ IDL }) => {
     'manifest' : IDL.Text,
   });
   const Result_1 = IDL.Variant({ 'ok' : Member, 'err' : IDL.Text });
+  const DAOStats = IDL.Record({
+    'member' : IDL.Vec(IDL.Text),
+    'numberOfMembers' : IDL.Nat,
+    'logo' : IDL.Text,
+    'name' : IDL.Text,
+    'manifesto' : IDL.Text,
+    'goals' : IDL.Vec(IDL.Text),
+  });
+  const HeaderField = IDL.Tuple(IDL.Text, IDL.Text);
+  const HttpRequest = IDL.Record({
+    'url' : IDL.Text,
+    'method' : IDL.Text,
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(HeaderField),
+  });
+  const StreamingCallbackToken = IDL.Record({
+    'key' : IDL.Text,
+    'index' : IDL.Nat,
+    'content_encoding' : IDL.Text,
+  });
+  const StreamingCallbackResponse = IDL.Record({
+    'token' : IDL.Opt(StreamingCallbackToken),
+    'body' : IDL.Vec(IDL.Nat8),
+  });
+  const StreamingCallback = IDL.Func(
+      [StreamingCallbackToken],
+      [StreamingCallbackResponse],
+      ['query'],
+    );
+  const StreamingStrategy = IDL.Variant({
+    'Callback' : IDL.Record({
+      'token' : StreamingCallbackToken,
+      'callback' : StreamingCallback,
+    }),
+  });
+  const HttpResponse = IDL.Record({
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(HeaderField),
+    'streaming_strategy' : IDL.Opt(StreamingStrategy),
+    'status_code' : IDL.Nat16,
+  });
   const VoteOk = IDL.Variant({
     'ProposalOpen' : IDL.Null,
     'ProposalRefused' : IDL.Null,
@@ -59,6 +100,8 @@ export const idlFactory = ({ IDL }) => {
     'getMember' : IDL.Func([IDL.Principal], [Result_1], ['query']),
     'getName' : IDL.Func([], [IDL.Text], ['query']),
     'getProposal' : IDL.Func([IDL.Nat], [IDL.Opt(Proposal)], ['query']),
+    'getStats' : IDL.Func([], [DAOStats], ['query']),
+    'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
     'mint' : IDL.Func([IDL.Principal, IDL.Nat], [], []),
     'numberOfMembers' : IDL.Func([], [IDL.Nat], ['query']),
     'removeMember' : IDL.Func([], [Result], []),

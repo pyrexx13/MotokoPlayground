@@ -24,6 +24,8 @@ export interface DAO {
   'getMember' : ActorMethod<[Principal], Result_1>,
   'getName' : ActorMethod<[], string>,
   'getProposal' : ActorMethod<[bigint], [] | [Proposal]>,
+  'getStats' : ActorMethod<[], DAOStats>,
+  'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
   'mint' : ActorMethod<[Principal, bigint], undefined>,
   'numberOfMembers' : ActorMethod<[], bigint>,
   'removeMember' : ActorMethod<[], Result>,
@@ -34,6 +36,27 @@ export interface DAO {
   'transfer' : ActorMethod<[Account, Account, bigint], Result>,
   'updateMember' : ActorMethod<[Member], Result>,
   'vote' : ActorMethod<[bigint, boolean], voteResult>,
+}
+export interface DAOStats {
+  'member' : Array<string>,
+  'numberOfMembers' : bigint,
+  'logo' : string,
+  'name' : string,
+  'manifesto' : string,
+  'goals' : Array<string>,
+}
+export type HeaderField = [string, string];
+export interface HttpRequest {
+  'url' : string,
+  'method' : string,
+  'body' : Uint8Array | number[],
+  'headers' : Array<HeaderField>,
+}
+export interface HttpResponse {
+  'body' : Uint8Array | number[],
+  'headers' : Array<HeaderField>,
+  'streaming_strategy' : [] | [StreamingStrategy],
+  'status_code' : number,
 }
 export interface Member { 'age' : bigint, 'name' : string }
 export interface Proposal {
@@ -50,6 +73,25 @@ export type Result_1 = { 'ok' : Member } |
 export type Status = { 'Open' : null } |
   { 'Rejected' : null } |
   { 'Accepted' : null };
+export type StreamingCallback = ActorMethod<
+  [StreamingCallbackToken],
+  StreamingCallbackResponse
+>;
+export interface StreamingCallbackResponse {
+  'token' : [] | [StreamingCallbackToken],
+  'body' : Uint8Array | number[],
+}
+export interface StreamingCallbackToken {
+  'key' : string,
+  'index' : bigint,
+  'content_encoding' : string,
+}
+export type StreamingStrategy = {
+    'Callback' : {
+      'token' : StreamingCallbackToken,
+      'callback' : StreamingCallback,
+    }
+  };
 export type Subaccount = Uint8Array | number[];
 export type VoteErr = { 'AlreadyVoted' : null } |
   { 'ProposalEnded' : null } |

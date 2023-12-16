@@ -18,6 +18,25 @@ type VoteErr =
    ProposalNotFound;
  };
 type Subaccount = blob;
+type StreamingStrategy = variant {
+                           Callback:
+                            record {
+                              callback: StreamingCallback;
+                              token: StreamingCallbackToken;
+                            };};
+type StreamingCallbackToken = 
+ record {
+   content_encoding: text;
+   index: nat;
+   key: text;
+ };
+type StreamingCallbackResponse = 
+ record {
+   body: blob;
+   token: opt StreamingCallbackToken;
+ };
+type StreamingCallback = func (StreamingCallbackToken) ->
+                          (StreamingCallbackResponse) query;
 type Status = 
  variant {
    Accepted;
@@ -47,6 +66,34 @@ type Member =
    age: nat;
    name: text;
  };
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   status_code: nat16;
+   streaming_strategy: opt StreamingStrategy;
+ };
+type HttpRequest = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   method: text;
+   url: text;
+ };
+type HeaderField = 
+ record {
+   text;
+   text;
+ };
+type DAOStats = 
+ record {
+   goals: vec text;
+   logo: text;
+   manifesto: text;
+   member: vec text;
+   name: text;
+   numberOfMembers: nat;
+ };
 type CreateProposalResult = 
  variant {
    err: CreateProposalErr;
@@ -68,13 +115,20 @@ service : {
   addMember: (Member) -> (Result);
   balanceOf: (Account) -> (nat) query;
   createProposal: (text) -> (CreateProposalResult);
+  getAllEntries: () -> (vec record {
+                              principal;
+                              Member;
+                            }) query;
   getAllMembers: () -> (vec Member) query;
+  getAllPrincipals: () -> (vec principal) query;
   getAllProposals: () -> (vec Proposal) query;
   getGoals: () -> (vec text) query;
   getManifesto: () -> (text) query;
   getMember: (principal) -> (Result_1) query;
   getName: () -> (text) query;
   getProposal: (nat) -> (opt Proposal) query;
+  getStats: () -> (DAOStats) query;
+  http_request: (HttpRequest) -> (HttpResponse) query;
   mint: (principal, nat) -> ();
   numberOfMembers: () -> (nat) query;
   removeMember: () -> (Result);

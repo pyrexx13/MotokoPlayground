@@ -20,7 +20,7 @@ type DAO = service {
   getName : () -> (text) query;
   getProposal : (nat) -> (opt Proposal) query;
   getStats : () -> (DAOStats) query;
-  http_request : (HttpRequest) -> (HttpResponse) query;
+  http_request : (HttpRequest) -> (HttpResponse);
   mint : (principal, nat) -> ();
   numberOfMembers : () -> (nat) query;
   removeMember : () -> (Result);

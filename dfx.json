@@ -3,27 +3,14 @@
     "full_dao": {
       "main": "src/dao_full_backend/main.mo",
       "type": "motoko"
-
     },
-    "accounts_backend_account": {
-      "main": "src/dao_account_backend/account.mo",
-      "type": "motoko"
-    },    
-    "accounts_backend_main": {
-      "main": "src/dao_account_backend/main.mo",
-      "type": "motoko"
-    },
-    "mydream_backend": {
+    "mydream_be": {
       "main": "src/mydream_backend/main.mo",
-      "type": "motoko"
-    },
-    "add_dreamers": {
-      "main": "src/add_dreamers_backend/main.mo",
       "type": "motoko"
     },
     "mydream_frontend": {
       "dependencies": [
-        "mydream_backend"
+        "mydream_be"
       ],
       "frontend": {
         "entrypoint": "src/mydream_frontend/src/index.html"
